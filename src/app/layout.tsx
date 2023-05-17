@@ -3,18 +3,25 @@ import { Metadata } from 'next'
 
 import { fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
+import { AuthProvider } from '@/components/auth-provider'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
 import { ThemeProvider } from '@/components/theme-provider'
+import { ThemeToggle } from '@/components/theme-toggle'
+import { Toaster } from '@/components/ui/toaster'
 
-export const meta: Metadata = {}
+export const metadata: Metadata = {
+  title: 'ChatJPS',
+  description:
+    'A conversational AI system that listens, learns, and challenges',
+}
 
-export default function RootLayout({
-  children,
-}: {
+type RootLayoutProps = {
   children: React.ReactNode
-}) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <>
+    <AuthProvider>
       <html lang='en' suppressHydrationWarning>
         <head />
         <body
@@ -24,13 +31,13 @@ export default function RootLayout({
           )}
         >
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-            <div className='relative flex min-h-screen flex-col'>
-              <div className='flex-1'>{children}</div>
-            </div>
+            {children}
+            <Toaster />
             <TailwindIndicator />
+            <ThemeToggle />
           </ThemeProvider>
         </body>
       </html>
-    </>
+    </AuthProvider>
   )
 }
