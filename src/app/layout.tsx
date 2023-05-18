@@ -6,7 +6,6 @@ import { cn } from '@/lib/utils'
 import { AuthProvider } from '@/components/auth-provider'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
 import { ThemeProvider } from '@/components/theme-provider'
-import { ThemeToggle } from '@/components/theme-toggle'
 import { Toaster } from '@/components/ui/toaster'
 
 export const metadata: Metadata = {
@@ -34,7 +33,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
             {children}
             <Toaster />
             <TailwindIndicator />
-            <ThemeToggle />
           </ThemeProvider>
         </body>
       </html>
