@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 
+import { sleep } from '@/lib/utils'
 import { Icons } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import { ToastAction } from '@/components/ui/toast'
@@ -27,20 +28,21 @@ export function LoginButton() {
         ),
       })
     } finally {
+      await sleep(3000)
       setIsLoading(false)
     }
   }
 
   return (
     <Button className='mt-4 w-full' onClick={handleLogin} disabled={isLoading}>
-      {isLoading ? (
-        <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
-      ) : (
-        <span className='flex items-center space-x-4'>
-          <Icons.google className='mr-2 h-6 w-6' />
-          Login
-        </span>
-      )}
+      <span className='flex items-center'>
+        {isLoading ? (
+          <Icons.spinner className='h-6 w-6 animate-spin' />
+        ) : (
+          <Icons.google className='h-6 w-6' />
+        )}
+        <p className='ml-3'>{isLoading ? 'Logging in...' : 'Login'}</p>
+      </span>
     </Button>
   )
 }
