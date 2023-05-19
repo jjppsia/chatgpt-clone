@@ -1,8 +1,6 @@
 import Link from 'next/link'
 import { Chat } from '@/app/page'
-import { useMediaQuery } from '@react-hookz/web'
 
-import { cn } from '@/lib/utils'
 import { Icons } from '@/components/icons'
 import { LogoutButton } from '@/components/logout-button'
 import { ThemeToggle } from '@/components/theme-toggle'
@@ -19,8 +17,6 @@ type MainNavProps = {
 }
 
 export function MainNav({ chats }: MainNavProps) {
-  const isMobile = useMediaQuery('(max-width: 768px)')
-
   return (
     <nav className='flex h-full flex-col'>
       <Link
@@ -30,12 +26,9 @@ export function MainNav({ chats }: MainNavProps) {
         <Icons.plus className='h-4 w-4' />
         <h1>New chat</h1>
       </Link>
-      <div
-        className={cn(
-          'my-6 h-screen overflow-y-auto',
-          isMobile && 'max-h-[calc(100vh-13.375rem)]'
-        )}
-      >
+
+      {/* Chats list */}
+      <div className='my-6 h-screen max-h-[calc(100vh-13.375rem)] overflow-y-auto md:max-h-none'>
         <ol className='flex flex-col'>
           {chats.map(({ href, chatMessage }, index) => (
             <li key={index}>
@@ -50,6 +43,8 @@ export function MainNav({ chats }: MainNavProps) {
           ))}
         </ol>
       </div>
+
+      {/* Footer */}
       <Popover>
         <PopoverTrigger asChild>
           <div className='mt-auto flex items-center text-sm'>
