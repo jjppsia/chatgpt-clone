@@ -1,3 +1,5 @@
+'use client'
+
 import { useOpenWithMediaQuery } from '@/hooks/use-open-with-media-query'
 
 import { Icons } from '@/components/icons'
