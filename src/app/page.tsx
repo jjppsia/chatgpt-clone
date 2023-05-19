@@ -1,5 +1,3 @@
-'use client'
-
 import { DesktopNav } from '@/components/navigations/desktop-nav'
 import { MainNav } from '@/components/navigations/main-nav'
 import { MobileNav } from '@/components/navigations/mobile-nav'
@@ -10,6 +8,11 @@ export type Chat = {
 }
 
 const chats: Chat[] = [
+  {
+    href: '#',
+    chatMessage:
+      'lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet.',
+  },
   {
     href: '#',
     chatMessage:
