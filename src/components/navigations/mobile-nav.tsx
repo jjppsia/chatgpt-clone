@@ -25,9 +25,9 @@ export function MobileNav({ children }: MobileNavProps) {
         <SheetContent
           position='left'
           size='xl'
-          className='flex min-w-[15.3125rem] max-w-xs flex-col'
+          className='min-w-[15.3125rem] max-w-xs p-0 pt-9'
         >
-          <div className='mt-6'>{children}</div>
+          {children}
         </SheetContent>
       </Sheet>
       <p>New chat</p>
