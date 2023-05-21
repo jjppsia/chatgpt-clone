@@ -2,7 +2,7 @@
 
 ## Overview
 
-The ChatGPT Clone project is an ongoing for fun project aimed at building a clone of the popular chatbot model, GPT-3, using a modern tech stack.
+Thank you for taking the time to check out my for fun project ChatGPT clone! Please note that this project is still a work in progress, and is not yet complete.
 
 ## Technologies Used
 
@@ -15,3 +15,7 @@ The ChatGPT Clone project is an ongoing for fun project aimed at building a clon
 - PlanetScale (Database)
 - Prisma (ORM)
 - NextAuth.js (Authentication)
+
+## Contact
+
+If you have any questions or feedback, please feel free to contact me at johnpaulsia4@gmail.com. Thank you for your interest in my project!
