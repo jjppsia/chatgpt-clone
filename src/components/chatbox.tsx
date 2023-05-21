@@ -16,7 +16,7 @@ export function Chatbox() {
   return (
     <main className='flex h-[calc(100vh-3.5rem)] grow flex-col p-5 md:h-screen md:p-3'>
       <div className='mx-auto h-full w-full max-w-6xl overflow-auto border-2'></div>
-      <footer className='mx-auto mt-5 w-full max-w-xl p-3'>
+      <footer className='mx-auto mt-5 w-full max-w-xl py-3'>
         <form onSubmit={handleSubmit} className='relative flex  items-center'>
           <Textarea
             placeholder='Send a mesage.'
