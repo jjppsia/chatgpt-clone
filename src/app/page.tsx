@@ -1,3 +1,4 @@
+import { Chatbox } from '@/components/chatbox'
 import { DesktopNav } from '@/components/navigations/desktop-nav'
 import { MainNav } from '@/components/navigations/main-nav'
 import { MobileNav } from '@/components/navigations/mobile-nav'
@@ -37,16 +38,14 @@ const chats: Chat[] = [
 
 export default function RootPage() {
   return (
-    <>
+    <div className='h-screen md:flex'>
       <DesktopNav>
         <MainNav chats={chats} />
       </DesktopNav>
       <MobileNav>
         <MainNav chats={chats} />
       </MobileNav>
-      <main className='py-10 lg:pl-72'>
-        <div className='px-4 sm:px-6 lg:px-8'>{/* content */}</div>
-      </main>
-    </>
+      <Chatbox />
+    </div>
   )
 }
