@@ -14,7 +14,7 @@ export function MobileNav({ children }: MobileNavProps) {
   const [open, setOpen] = useOpenWithMediaQuery('(min-width: 768px)')
 
   return (
-    <div className='sticky top-0 z-40 flex items-center justify-between border-b p-2 md:hidden'>
+    <div className='sticky top-0 z-50 flex h-14 items-center justify-between border-b p-2 md:hidden'>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <Button variant='ghost' size='sm'>
