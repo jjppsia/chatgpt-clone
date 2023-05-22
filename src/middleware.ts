@@ -4,19 +4,25 @@ import { withAuth } from 'next-auth/middleware'
 
 const middleware = async (req: NextRequest) => {
   const token = await getToken({ req })
+
+  const pathname = req.nextUrl.pathname
   const isAuthorized = !!token
-  const isAuthorizedPage = req.nextUrl.pathname.startsWith('/auth/login')
+  const isAuthorizedPage = pathname.startsWith('/auth/login')
 
   if (isAuthorizedPage) {
     if (isAuthorized) {
-      return NextResponse.redirect(new URL('/', req.url))
+      return NextResponse.redirect(new URL('/chat', req.url))
     }
 
-    return null
+    return NextResponse.next()
   }
 
   if (!isAuthorized) {
     return NextResponse.redirect(new URL('/auth/login', req.url))
+  }
+
+  if (pathname === '/') {
+    return NextResponse.redirect(new URL('/chat', req.url))
   }
 }
 
@@ -29,5 +35,5 @@ export default withAuth(middleware, {
 })
 
 export const config = {
-  matcher: ['/', '/chats/:path*', '/auth/login'],
+  matcher: ['/', '/chat/:path*', '/auth/login'],
 }
