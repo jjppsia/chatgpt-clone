@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Chat } from '@/app/page'
+import { Chat } from '@/app/(chat)/chat/page'
 
 import { cn } from '@/lib/utils'
 import { Icons } from '@/components/icons'

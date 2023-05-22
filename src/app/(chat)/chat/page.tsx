@@ -36,7 +36,7 @@ const chats: Chat[] = [
   },
 ]
 
-export default function RootPage() {
+export default function ChatPage() {
   return (
     <div className='h-screen md:flex'>
       <DesktopNav>
