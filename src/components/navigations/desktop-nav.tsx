@@ -1,7 +1,17 @@
+import { Chat } from '@prisma/client'
+import { Session } from 'next-auth'
+
+import { NavContent } from '@/components/navigations/nav-content'
+
 type DesktopNavProps = {
-  children: React.ReactNode
+  user: Session['user']
+  chats: Chat[]
 }
 
-export function DesktopNav({ children }: DesktopNavProps) {
-  return <nav className='hidden w-80 border-r lg:block'>{children}</nav>
+export function DesktopNav({ user, chats }: DesktopNavProps) {
+  return (
+    <nav className='hidden w-80 border-r lg:block'>
+      <NavContent user={user} chats={chats} />
+    </nav>
+  )
 }

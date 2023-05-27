@@ -1,16 +1,20 @@
 'use client'
 
 import { useOpenWithMediaQuery } from '@/hooks/use-open-with-media-query'
+import { Chat } from '@prisma/client'
+import { Session } from 'next-auth'
 
 import { Icons } from '@/components/icons'
+import { NavContent } from '@/components/navigations/nav-content'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 type MobileNavProps = {
-  children: React.ReactNode
+  user: Session['user']
+  chats: Chat[]
 }
 
-export function MobileNav({ children }: MobileNavProps) {
+export function MobileNav({ user, chats }: MobileNavProps) {
   const [open, setOpen] = useOpenWithMediaQuery('(min-width: 768px)')
 
   return (
@@ -27,7 +31,7 @@ export function MobileNav({ children }: MobileNavProps) {
           size='xl'
           className='min-w-[15.3125rem] max-w-xs p-0 pt-9'
         >
-          {children}
+          <NavContent user={user} chats={chats} setOpenChange={setOpen} />
         </SheetContent>
       </Sheet>
       <p>New chat</p>

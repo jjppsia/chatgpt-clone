@@ -2,17 +2,18 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Chat } from '@prisma/client'
+import { FilteredChat } from '@/app/chat/layout'
 
 import { cn } from '@/lib/utils'
 import { Icons } from '@/components/icons'
 import { buttonVariants } from '@/components/ui/button'
 
 type NavChatsListProps = {
-  chats: Pick<Chat, 'id' | 'title'>[]
+  chats: FilteredChat[]
+  setOpenChange?: (open: boolean) => void
 }
 
-export function NavChatsList({ chats }: NavChatsListProps) {
+export function NavChatsList({ chats, setOpenChange }: NavChatsListProps) {
   const chatIdFromParams = usePathname().split('/')[2]
 
   return (
@@ -26,6 +27,7 @@ export function NavChatsList({ chats }: NavChatsListProps) {
               'h-auto w-full space-x-3 p-3',
               chatIdFromParams === id && 'bg-accent'
             )}
+            onClick={() => setOpenChange?.(false)}
           >
             <Icons.messageSquare className='h-4 w-4' />
             <p title={title} className='flex-1 truncate'>
