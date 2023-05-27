@@ -131,12 +131,13 @@ export function Chatbox({ user, chats }: ChatboxProps) {
     await streamReader(reader, (message) => {
       if (message.event === 'onBeforeStream') {
         setNewChatId(message.content)
-      } else {
-        setOpenAIResponseMessage(
-          (prevMessage) => `${prevMessage}${message.content}`
-        )
-        content += message.content
       }
+
+      setOpenAIResponseMessage(
+        (prevMessage) => `${prevMessage}${message.content}`
+      )
+
+      content += message.content
     })
 
     setFullMessage(content)
