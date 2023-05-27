@@ -12,7 +12,7 @@ Thank you for taking the time to check out my for fun project ChatGPT clone! Ple
 - TailwindCSS (CSS Framework)
 - Radix UI (UI Components)
 - shadcn/ui (UI Components)
-- PlanetScale (Database)
+- MongoDB (Database)
 - Prisma (ORM)
 - NextAuth.js (Authentication)
 
