@@ -11,8 +11,8 @@ import { Icons } from '@/components/icons'
 import { ChatMessageMemo } from '@/components/message'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
-import { ToastAction } from './ui/toast'
-import { toast } from './ui/use-toast'
+import { ToastAction } from '@/components/ui/toast'
+import { toast } from '@/components/ui/use-toast'
 
 type ChatboxProps = {
   user: Session['user']
@@ -183,12 +183,15 @@ export function Chatbox({ user, chats }: ChatboxProps) {
       <footer className='mx-auto mt-5 w-full max-w-xl py-3'>
         <form onSubmit={handleSubmit} className='relative flex items-center'>
           <Textarea
-            placeholder='Send a mesage.'
-            className='h-10 min-h-0 resize-none'
+            placeholder={
+              generatingResponse ? 'Generating response...' : 'Send a message.'
+            }
+            className='resize-none'
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             onKeyDown={handleKeyDown}
             disabled={generatingResponse}
+            autoFocus
           />
           <Button
             variant='ghost'
