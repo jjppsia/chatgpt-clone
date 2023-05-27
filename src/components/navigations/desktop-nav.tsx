@@ -3,5 +3,5 @@ type DesktopNavProps = {
 }
 
 export function DesktopNav({ children }: DesktopNavProps) {
-  return <div className='hidden w-80 border-r md:block'>{children}</div>
+  return <nav className='hidden w-80 border-r lg:block'>{children}</nav>
 }

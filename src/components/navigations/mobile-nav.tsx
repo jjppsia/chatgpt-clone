@@ -14,7 +14,7 @@ export function MobileNav({ children }: MobileNavProps) {
   const [open, setOpen] = useOpenWithMediaQuery('(min-width: 768px)')
 
   return (
-    <div className='sticky top-0 z-50 flex h-14 items-center justify-between border-b p-2 md:hidden'>
+    <nav className='sticky top-0 z-50 flex h-14 items-center justify-between border-b p-2 lg:hidden'>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <Button variant='ghost' size='sm'>
@@ -35,6 +35,6 @@ export function MobileNav({ children }: MobileNavProps) {
         <span className='sr-only'>Create a new chat</span>
         <Icons.plus className='h-6 w-6' aria-hidden='true' />
       </Button>
-    </div>
+    </nav>
   )
 }
