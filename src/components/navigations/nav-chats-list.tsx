@@ -2,14 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { FilteredChat } from '@/app/chat/layout'
+import { Chat } from '@prisma/client'
 
 import { cn } from '@/lib/utils'
 import { Icons } from '@/components/icons'
 import { buttonVariants } from '@/components/ui/button'
 
 type NavChatsListProps = {
-  chats: FilteredChat[]
+  chats: Chat[]
   setOpenChange?: (open: boolean) => void
 }
 
