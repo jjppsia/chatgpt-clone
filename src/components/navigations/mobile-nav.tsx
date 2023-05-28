@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname, useRouter } from 'next/navigation'
 import { useOpenWithMediaQuery } from '@/hooks/use-open-with-media-query'
 import { Chat } from '@prisma/client'
 import { Session } from 'next-auth'
@@ -16,6 +17,8 @@ type MobileNavProps = {
 
 export function MobileNav({ user, chats }: MobileNavProps) {
   const [open, setOpen] = useOpenWithMediaQuery('(min-width: 768px)')
+  const router = useRouter()
+  const chatIdFromParams = usePathname().split('/')[2]
 
   return (
     <nav className='sticky top-0 z-50 flex h-14 items-center justify-between border-b p-2 lg:hidden'>
@@ -34,8 +37,8 @@ export function MobileNav({ user, chats }: MobileNavProps) {
           <NavContent user={user} chats={chats} setOpenChange={setOpen} />
         </SheetContent>
       </Sheet>
-      <p>New chat</p>
-      <Button variant='ghost' size='sm'>
+      {chatIdFromParams ? null : <p>New Chat</p>}
+      <Button variant='ghost' size='sm' onClick={() => router.push('/chat')}>
         <span className='sr-only'>Create a new chat</span>
         <Icons.plus className='h-6 w-6' aria-hidden='true' />
       </Button>
