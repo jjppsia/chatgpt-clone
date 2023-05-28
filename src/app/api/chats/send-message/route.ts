@@ -1,5 +1,5 @@
 import { MessageWithChatId, OverridenMessageType } from '@/app/api/chats/types'
-import { Chat } from '@prisma/client'
+import { Chat, Message } from '@prisma/client'
 import { OpenAIEdgeStream } from 'openai-edge-stream'
 
 import { env } from '@/lib/validations/env'
@@ -8,12 +8,15 @@ export const runtime = 'edge'
 
 const INITIAL_SYSTEM_MESSAGE: OverridenMessageType = {
   role: 'system',
-  content:
-    'Your name is ChatJPS. An incredibly intelligent and quick-thinking AI, that always replies with and enthusiastic and positive energy. You were created by Jp Sia. Your response must be formatted as markdown.',
+  content: `Your name is ChatJPS. An incredibly intelligent and quick-thinking AI,
+    that always replies with and enthusiastic and positive energy.
+    You were created by Jp Sia. Your response must be formatted as markdown.`,
 }
-
 const TOKEN = 4
 const MAXIMUM_TOKENS = 2000
+
+type HTTPMethod = 'POST' | 'PATCH'
+type JSONValue = MessageWithChatId | Pick<Message, 'content'>
 
 export async function POST(req: Request) {
   try {
@@ -27,66 +30,48 @@ export async function POST(req: Request) {
       prompt: string
     } = await req.json()
 
-    let chatId = chatIdFromParams
-    let newChatId: Chat['id'] | undefined
-    let chatMessages: OverridenMessageType[] = []
+    const fetchMethod: HTTPMethod = chatIdFromParams ? 'PATCH' : 'POST'
 
-    if (chatId) {
-      const response = await fetch(`${domain}/api/chats`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          cookie: req.headers.get('cookie') || '',
-        },
-        body: JSON.stringify({
-          chatId,
-          role: 'user',
-          content: prompt,
-        } as MessageWithChatId),
-      })
-
-      const { messages }: { messages: OverridenMessageType[] } =
-        await response.json()
-
-      chatMessages = messages || []
-    } else {
-      const response = await fetch(`${domain}/api/chats`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          cookie: req.headers.get('cookie') || '',
-        },
-        body: JSON.stringify({ chatId, prompt }),
-      })
-
-      const {
-        id,
-        messages,
-      }: {
-        id: Chat['id']
-        messages: OverridenMessageType[]
-      } = await response.json()
-
-      chatId = id
-      newChatId = id
-      chatMessages = messages || []
+    const fetchHeaders = {
+      'Content-Type': 'application/json',
+      cookie: req.headers.get('cookie') || '',
     }
+
+    const jsonValue: JSONValue = chatIdFromParams
+      ? { chatId: chatIdFromParams, role: 'user', content: prompt }
+      : { content: prompt }
+
+    const fetchBody = JSON.stringify(jsonValue)
+
+    const response = await fetch(`${domain}/api/chats`, {
+      method: fetchMethod,
+      headers: fetchHeaders,
+      body: fetchBody,
+    })
+
+    const {
+      id,
+      messages,
+    }: {
+      id: Chat['id']
+      messages: OverridenMessageType[]
+    } = await response.json()
 
     const messagesToInclude: OverridenMessageType[] = []
 
-    chatMessages.reverse()
+    messages.reverse()
 
-    chatMessages.forEach((chatMessage) => {
+    messages.forEach((message) => {
       let usedTokens = 0
 
-      const messageTokens = chatMessage.content.length / TOKEN
+      const messageTokens = message.content.length / TOKEN
       usedTokens += messageTokens
 
-      if (usedTokens <= MAXIMUM_TOKENS) {
-        messagesToInclude.push(chatMessage)
-      } else {
+      if (usedTokens > MAXIMUM_TOKENS) {
         return
       }
+
+      messagesToInclude.push(message)
     })
 
     messagesToInclude.reverse()
@@ -110,8 +95,8 @@ export async function POST(req: Request) {
       },
       {
         onBeforeStream: async ({ emit }) => {
-          if (newChatId) {
-            emit(newChatId, 'onBeforeStream')
+          if (id) {
+            emit(id, 'onBeforeStream')
           }
         },
         onAfterStream: async ({ fullContent }) => {
@@ -122,7 +107,7 @@ export async function POST(req: Request) {
               cookie: req.headers.get('cookie') || '',
             },
             body: JSON.stringify({
-              chatId,
+              chatId: id,
               role: 'assistant',
               content: fullContent,
             } as MessageWithChatId),

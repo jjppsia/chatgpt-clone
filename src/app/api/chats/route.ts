@@ -1,4 +1,5 @@
 import { MessageWithChatId, OverridenMessageType } from '@/app/api/chats/types'
+import { Message } from '@prisma/client'
 import { getServerSession } from 'next-auth'
 
 import { authOptions } from '@/lib/auth'
@@ -12,14 +13,14 @@ export async function POST(req: Request) {
       return new Response('Unauthorized', { status: 403 })
     }
 
-    const { prompt }: { prompt: string } = await req.json()
+    const { content }: { content: Message['content'] } = await req.json()
 
     const chat = await db.chat.create({
       data: {
         userId: session.user.id,
-        title: prompt,
+        title: content,
         messages: {
-          set: [{ role: 'user', content: prompt } as OverridenMessageType],
+          set: [{ role: 'user', content } as OverridenMessageType],
         },
       },
     })
