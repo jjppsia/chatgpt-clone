@@ -1,4 +1,4 @@
-# ChatGPT Clone - Work in Progress
+# ChatGPT Clone
 
 ## Overview
 
