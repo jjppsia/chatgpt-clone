@@ -41,7 +41,7 @@ export function LoginButton() {
         ) : (
           <Icons.google className='h-6 w-6' />
         )}
-        <p className='ml-3'>{isLoading ? 'Logging in...' : 'Login'}</p>
+        <p className='ml-3'>{isLoading ? 'Logging in...' : 'Google'}</p>
       </span>
     </Button>
   )
