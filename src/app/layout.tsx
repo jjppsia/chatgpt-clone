@@ -22,11 +22,11 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <AuthProvider>
-      <html lang='en' suppressHydrationWarning>
+      <html lang='en' className='h-full' suppressHydrationWarning>
         <head />
         <body
           className={cn(
-            'min-h-screen bg-background font-sans antialiased',
+            'h-full bg-background font-sans antialiased',
             fontSans.variable
           )}
         >
