@@ -16,7 +16,7 @@ type MobileNavProps = {
 }
 
 export function MobileNav({ user, chats }: MobileNavProps) {
-  const [open, setOpen] = useOpenWithMediaQuery('(min-width: 768px)')
+  const [open, setOpen] = useOpenWithMediaQuery('(min-width: 1024px)')
   const router = useRouter()
   const chatIdFromParams = usePathname().split('/')[2]
 
@@ -30,9 +30,8 @@ export function MobileNav({ user, chats }: MobileNavProps) {
           </Button>
         </SheetTrigger>
         <SheetContent
-          position='left'
-          size='xl'
-          className='min-w-[15.3125rem] max-w-xs p-0 pt-9'
+          className='min-w-[160px] max-w-xs sm:max-w-xs'
+          side='left'
         >
           <NavContent user={user} chats={chats} setOpenChange={setOpen} />
         </SheetContent>
