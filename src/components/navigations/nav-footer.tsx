@@ -33,8 +33,8 @@ export function NavFooter({ user }: NavFooterProps) {
               {user.name ? user.name[0].toUpperCase() : 'U'}
             </AvatarFallback>
           </Avatar>
-          <p className='ml-3'>{user.name}</p>
-          <Button variant='ghost' className='ml-auto h-auto p-1'>
+          <p className='ml-3 truncate'>{user.name}</p>
+          <Button variant='ghost' className='ml-auto h-auto p-1 pl-3'>
             <Icons.ellipsis className='h-4 w-4' />
             <span className='sr-only'>Open popover</span>
           </Button>
