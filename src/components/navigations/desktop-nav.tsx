@@ -10,8 +10,8 @@ type DesktopNavProps = {
 
 export function DesktopNav({ user, chats }: DesktopNavProps) {
   return (
-    <nav className='hidden w-80 border-r lg:block'>
+    <div className='hidden w-80 border-r lg:block'>
       <NavContent user={user} chats={chats} />
-    </nav>
+    </div>
   )
 }

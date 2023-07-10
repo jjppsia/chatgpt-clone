@@ -21,7 +21,7 @@ export function MobileNav({ user, chats }: MobileNavProps) {
   const chatIdFromParams = usePathname().split('/')[2]
 
   return (
-    <nav className='sticky top-0 z-50 flex h-14 items-center justify-between border-b p-2 lg:hidden'>
+    <div className='sticky top-0 z-50 flex h-14 items-center justify-between border-b p-2 lg:hidden'>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <Button variant='ghost' size='sm'>
@@ -41,6 +41,6 @@ export function MobileNav({ user, chats }: MobileNavProps) {
         <span className='sr-only'>Create a new chat</span>
         <Icons.plus className='h-6 w-6' aria-hidden='true' />
       </Button>
-    </nav>
+    </div>
   )
 }
