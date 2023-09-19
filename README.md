@@ -2,7 +2,7 @@
 
 ## Overview
 
-Thank you for taking the time to check out my for fun project ChatGPT clone! Please note that this project is still a work in progress, and is not yet complete.
+Thank you for taking the time to check out my for fun project ChatGPT clone.
 
 ## Technologies Used
 
